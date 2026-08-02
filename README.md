@@ -4,7 +4,7 @@
 
 - **Nome do sistema:** Sistema de -----------
 - **Integrantes:** Guilherme Jaques, Gabriel e Gabriel
-- **Repositório:** https://github.com/SEU-USUARIO/sistema-matriculas-seguro
+- **Repositório:** https://github.com/Novato320/Trabalho-ES-Seguro-2026-Grupo5
 - **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais e acadêmicas e executar operações importantes, como solicitações e cancelamentos de matrícula.
 
 > **Observação:** Este é um modelo didático inspirado em um sistema universitário de matrículas e não representa necessariamente a implementação real utilizada pela UNIPAMPA.

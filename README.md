@@ -2,13 +2,13 @@
 
 ## 1. Identificação do sistema
 
-- **Nome do sistema:** Sistema deAplicativo de Delivery
-- **Integrantes:** Guilherme Jaques, Gabriel e Gabriel
+- **Nome do sistema:** Sistema de Aplicativo de Delivery
+- **Integrantes:** Guilherme Jaques, Gabriel Ortis e Gabriel
 - **Repositório:** https://github.com/Novato320/Trabalho-ES-Seguro-2026-Grupo5
-- **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais e acadêmicas e executar operações importantes, como solicitações e cancelamentos de matrícula.
+- **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais, endereços e dados de pedidos, além de executar operações críticas, como realização de compras, processamento de pagamentos, acompanhamento de entregas e cancelamento de pedidos.
 
-> **Observação:** Este é um modelo didático inspirado em um sistema universitário de matrículas e não representa necessariamente a implementação real utilizada pela UNIPAMPA.
+> **Observação:** Este é um modelo didático inspirado em um aplicativo de delivery, não representando a implementação de nenhuma plataforma comercial existente.
 
 ## 2. Descrição do sistema
 
-O Sistema de Matrículas Acadêmicas permite que estudantes consultem os componentes curriculares ofertados, solicitem ou cancelem matrículas e acompanhem o resultado das solicitações. Servidores autorizados podem administrar ofertas, vagas e situações acadêmicas, enquanto professores consultam as turmas sob sua responsabilidade. O sistema armazena dados pessoais, informações acadêmicas, solicitações, resultados e registros das operações realizadas.
+O Sistema de Aplicativo de Delivery permite que clientes consultem estabelecimentos parceiros, visualizem cardápios, realizem pedidos, efetuem pagamentos e acompanhem o status da entrega em tempo real. Estabelecimentos podem gerenciar seus produtos, preços, pedidos e disponibilidade, enquanto entregadores visualizam as entregas atribuídas e atualizam o andamento das entregas. O sistema armazena dados pessoais dos usuários, endereços, informações de pagamento, histórico de pedidos, registros das entregas e logs das operações realizadas.

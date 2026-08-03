@@ -1,8 +1,8 @@
-# Sistema de ---------
+# Sistema de Aplicativo de Delivery
 
 ## 1. Identificação do sistema
 
-- **Nome do sistema:** Sistema de -----------
+- **Nome do sistema:** Sistema deAplicativo de Delivery
 - **Integrantes:** Guilherme Jaques, Gabriel e Gabriel
 - **Repositório:** https://github.com/Novato320/Trabalho-ES-Seguro-2026-Grupo5
 - **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais e acadêmicas e executar operações importantes, como solicitações e cancelamentos de matrícula.

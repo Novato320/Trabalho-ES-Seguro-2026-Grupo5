@@ -12,3 +12,19 @@
 ## 2. Descrição do sistema
 
 O Sistema de Aplicativo de Delivery permite que clientes consultem estabelecimentos parceiros, visualizem cardápios, realizem pedidos, efetuem pagamentos e acompanhem o status da entrega em tempo real. Estabelecimentos podem gerenciar seus produtos, preços, pedidos e disponibilidade, enquanto entregadores visualizam as entregas atribuídas e atualizam o andamento das entregas. O sistema armazena dados pessoais dos usuários, endereços, informações de pagamento, histórico de pedidos, registros das entregas e logs das operações realizadas.
+
+## 3. Usuários, ativos e pontos de interação
+
+## 4. Visão geral da arquitetura ou fluxo
+
+## 5. Modelagem de Ameaças com STRIDE
+
+## 6. Casos de abuso
+
+## 7. Considerações finais
+
+---
+
+## 8. Análise e priorização de riscos
+
+## 9. Tratamento dos riscos com o NIST CSF

@@ -3,7 +3,7 @@
 ## 1. Identificação do sistema
 
 - **Nome do sistema:** Sistema de Aplicativo de Delivery
-- **Integrantes:** Guilherme Jaques, Gabriel Ortis e Gabriel
+- **Integrantes:** Guilherme Jaques, Gabriel Ortis e Gabriel Dornelles
 - **Repositório:** https://github.com/Novato320/Trabalho-ES-Seguro-2026-Grupo5
 - **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais, endereços e dados de pedidos, além de executar operações críticas, como realização de compras, processamento de pagamentos, acompanhamento de entregas e cancelamento de pedidos.
 

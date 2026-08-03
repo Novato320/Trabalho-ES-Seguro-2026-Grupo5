@@ -17,9 +17,9 @@ O Sistema de Aplicativo de Delivery permite que clientes consultem estabelecimen
 
 ## 4. Visão geral da arquitetura ou fluxo
 
-## 5. Modelagem de Ameaças com STRIDE
+## 5. [Modelagem de Ameaças com STRIDE](docs/modelagem-de-ameacas.md)
 
-## 6. Casos de abuso
+## 6. [Casos de abuso](docs/casos-de-abuso.md)
 
 ## 7. Considerações finais
 

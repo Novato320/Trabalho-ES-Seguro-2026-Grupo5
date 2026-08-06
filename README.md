@@ -3,7 +3,7 @@
 ## 1. Identificação do sistema
 
 - **Nome do sistema:** Sistema de Aplicativo de Delivery
-- **Integrantes:** Guilherme Jaques, Gabriel Ortis e Gabriel Dornelles
+- **Integrantes:** Guilherme Jaques, Gabriel Ortiz e Gabriel Dornelles
 - **Repositório:** https://github.com/Novato320/Trabalho-ES-Seguro-2026-Grupo5
 - **Justificativa:** O sistema foi escolhido por possuir diferentes perfis de usuários, armazenar informações pessoais, endereços e dados de pedidos, além de executar operações críticas, como realização de compras, processamento de pagamentos, acompanhamento de entregas e cancelamento de pedidos.
 
@@ -14,6 +14,40 @@
 O Sistema de Aplicativo de Delivery permite que clientes consultem estabelecimentos parceiros, visualizem cardápios, realizem pedidos, efetuem pagamentos e acompanhem o status da entrega em tempo real. Estabelecimentos podem gerenciar seus produtos, preços, pedidos e disponibilidade, enquanto entregadores visualizam as entregas atribuídas e atualizam o andamento das entregas. O sistema armazena dados pessoais dos usuários, endereços, informações de pagamento, histórico de pedidos, registros das entregas e logs das operações realizadas.
 
 ## 3. Usuários, ativos e pontos de interação
+### 3.1 Usuários e perfis de acesso
+
+- **Cliente:** consulta estabelecimentos e produtos, realiza pedidos, efetua pagamentos e acompanha o andamento da entrega.
+- **Estabelecimento:** gerencia produtos, preços, disponibilidade e pedidos recebidos.
+- **Entregador:** visualiza entregas atribuídas e atualiza o status da entrega.
+- **Administrador:** gerencia usuários, permissões, configurações e atividades administrativas do sistema.
+
+### 3.2 Ativos importantes
+
+Os principais ativos que precisam ser protegidos são:
+
+- credenciais de acesso dos usuários;
+- dados pessoais, como nome, telefone e e-mail;
+- endereços e informações de localização;
+- histórico e informações dos pedidos;
+- dados relacionados aos pagamentos;
+- informações dos estabelecimentos e entregadores;
+- avaliações realizadas pelos usuários;
+- registros e logs das operações;
+- banco de dados do sistema.
+
+O acesso, alteração, divulgação ou indisponibilidade indevida desses ativos pode causar prejuízos financeiros, exposição de informações pessoais, fraudes e perda de confiança no sistema.
+
+### 3.3 Pontos de interação
+
+Os principais pontos de interação do sistema são:
+
+- aplicativo ou interface utilizada pelo cliente;
+- interface utilizada pelos estabelecimentos;
+- interface utilizada pelos entregadores;
+- API/backend do sistema;
+- banco de dados;
+- serviço externo de pagamento;
+- serviços de localização e mapas.
 
 ## 4. Visão geral da arquitetura ou fluxo
 

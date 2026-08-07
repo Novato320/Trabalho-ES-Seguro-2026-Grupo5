@@ -59,15 +59,16 @@ Além disso, o sistema pode se comunicar com serviços externos, como uma plataf
 
 ### Fluxo simplificado
 
-Cliente ───────────────┐
-                       │
-Estabelecimento ──────→ API / Backend ──────→ Banco de Dados
-                       │
-Entregador ────────────┘
-                       │
-                       ├────→ Serviço de Pagamento
-                       │
-                       └────→ Serviço de Mapas / Localização
+```text
+Cliente ──────────────┐
+                      │
+Estabelecimento ──────┼──→ API / Backend ───→ Banco de Dados
+                      │          │
+Entregador ───────────┘          ├──→ Serviço de Pagamento
+                                 │
+                                 └──→ Serviço de Mapas / Localização
+
+```                       
 
 ## 5. [Modelagem de Ameaças com STRIDE](docs/modelagem-de-ameacas.md)
 

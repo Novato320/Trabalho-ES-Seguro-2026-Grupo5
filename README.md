@@ -51,6 +51,24 @@ Os principais pontos de interação do sistema são:
 
 ## 4. Visão geral da arquitetura ou fluxo
 
+O sistema é composto por diferentes tipos de usuários que acessam a aplicação por meio de suas respectivas interfaces. Essas interfaces se comunicam com uma API/backend responsável por processar as requisições, aplicar as regras de negócio e controlar o acesso às funcionalidades.
+
+O backend acessa o banco de dados para armazenar e consultar informações como usuários, estabelecimentos, produtos, pedidos, entregas, pagamentos e registros das operações.
+
+Além disso, o sistema pode se comunicar com serviços externos, como uma plataforma de pagamento e serviços de mapas e localização.
+
+### Fluxo simplificado
+
+Cliente ───────────────┐
+                       │
+Estabelecimento ──────→ API / Backend ──────→ Banco de Dados
+                       │
+Entregador ────────────┘
+                       │
+                       ├────→ Serviço de Pagamento
+                       │
+                       └────→ Serviço de Mapas / Localização
+
 ## 5. [Modelagem de Ameaças com STRIDE](docs/modelagem-de-ameacas.md)
 
 ## 6. [Casos de abuso](docs/casos-de-abuso.md)

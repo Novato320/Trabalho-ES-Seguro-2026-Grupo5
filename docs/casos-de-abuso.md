@@ -1,113 +1,94 @@
 ## 6. Casos de abuso
 
-### CA01 — Cancelamento de matrícula por meio de conta roubada
+### CA01 — Cancelamento ou alteração de pedido por meio de conta roubada
 
 **Ator:** atacante externo.
 
-**Objetivo:** prejudicar um estudante cancelando suas solicitações ou matrículas.
+**Objetivo:** causar prejuízo a um cliente ou estabelecimento cancelando ou alterando um pedido já pago.
 
 **Condições necessárias:**
-
 - o atacante obtém as credenciais da vítima;
-- o sistema não exige uma verificação adicional para operações importantes;
-- a conta da vítima pode ser acessada somente com o usuário e a senha obtidos.
+- o sistema não exige verificação adicional para operações sensíveis (cancelamento, alteração de endereço);
+- a conta pode ser acessada apenas com usuário e senha.
 
 **Fluxo de abuso:**
-
-1. O atacante obtém o usuário e a senha do estudante.
+1. O atacante obtém o usuário e a senha do cliente.
 2. O atacante acessa o sistema utilizando a identidade da vítima.
-3. O atacante consulta as solicitações existentes.
-4. O atacante cancela uma ou mais matrículas.
-5. O estudante percebe o cancelamento posteriormente.
+3. O atacante consulta os pedidos em andamento.
+4. O atacante cancela o pedido ou altera o endereço de entrega.
+5. O cliente percebe o problema apenas após o ocorrido.
 
-**Impacto esperado:** perda de vaga, atraso acadêmico, necessidade de contestação e prejuízo ao estudante.
+**Impacto esperado:** prejuízo financeiro, perda do pedido/pagamento, necessidade de contestação e reembolso.
 
 **Categorias STRIDE relacionadas:** Spoofing, Tampering e Repudiation.
 
 ---
 
-### CA02 — Estudante obtém permissões administrativas
+### CA02 — Entregador confirma entrega sem realizá-la
 
-**Ator:** estudante mal-intencionado.
+**Ator:** entregador mal-intencionado.
 
-**Objetivo:** alterar vagas ou matrículas utilizando funções reservadas à secretaria.
+**Objetivo:** receber o pagamento pela entrega sem efetivamente entregar o pedido ao cliente.
 
 **Condições necessárias:**
-
-- existe uma falha no controle de autorização;
-- o sistema verifica apenas se o usuário está autenticado;
-- as funções administrativas podem ser acessadas diretamente.
+- o sistema confia apenas na confirmação feita pelo próprio entregador;
+- não há verificação adicional (foto, código de confirmação, geolocalização) no momento da entrega;
+- o pagamento ao entregador é liberado com base apenas nesse status.
 
 **Fluxo de abuso:**
+1. O entregador retira o pedido no estabelecimento.
+2. O entregador marca o pedido como "entregue" no aplicativo sem entregá-lo.
+3. O sistema libera o pagamento ao entregador.
+4. O cliente não recebe o pedido e precisa abrir uma contestação.
 
-1. O estudante autentica-se normalmente.
-2. O estudante identifica uma página ou requisição utilizada pela secretaria.
-3. O estudante acessa a função administrativa sem possuir a permissão necessária.
-4. O estudante aumenta o número de vagas de um componente curricular.
-5. O estudante altera sua própria situação de matrícula ou a de outro usuário.
+**Impacto esperado:** prejuízo ao cliente, custo de reembolso ao estabelecimento/plataforma, perda de confiança no serviço de entrega.
 
-**Impacto esperado:** manipulação do processo acadêmico, favorecimento indevido, inconsistência de dados e perda de confiança no sistema.
-
-**Categorias STRIDE relacionadas:** Elevation of Privilege e Tampering.
+**Categorias STRIDE relacionadas:** Repudiation e Tampering.
 
 ---
 
-### CA03 — Consulta indevida de dados acadêmicos
+### CA03 — Consulta indevida de pedidos e dados de outros clientes
 
 **Ator:** usuário autenticado sem autorização para consultar dados de terceiros.
 
-**Objetivo:** obter informações pessoais ou acadêmicas de outros estudantes.
+**Objetivo:** obter dados pessoais, endereços ou histórico de pedidos de outros clientes.
 
 **Condições necessárias:**
-
-- o sistema não verifica corretamente a qual usuário pertence o registro solicitado;
-- identificadores de estudantes ou matrículas podem ser modificados;
-- a aplicação retorna dados sem validar a autorização.
+- o sistema não verifica corretamente a quem pertence o pedido solicitado;
+- identificadores de pedidos ou usuários podem ser modificados diretamente na requisição (ex.: trocar o ID na URL);
+- a API retorna os dados sem validar a autorização.
 
 **Fluxo de abuso:**
+1. O usuário acessa seus próprios pedidos normalmente.
+2. O usuário modifica o identificador do pedido presente na requisição.
+3. O sistema retorna dados de um pedido pertencente a outro cliente.
+4. O usuário repete a operação para consultar diversos registros.
+5. As informações coletadas são armazenadas ou usadas indevidamente.
 
-1. O usuário acessa seus próprios dados acadêmicos.
-2. O usuário modifica o identificador presente em uma página ou requisição.
-3. O sistema retorna dados pertencentes a outro estudante.
-4. O usuário repete a operação para consultar diferentes registros.
-5. As informações são armazenadas ou divulgadas indevidamente.
-
-**Impacto esperado:** violação de privacidade, exposição de informações pessoais e acadêmicas e possível uso indevido dos dados.
+**Impacto esperado:** violação de privacidade, exposição de endereços e dados pessoais, possível uso para golpes ou assédio.
 
 **Categorias STRIDE relacionadas:** Information Disclosure.
 
 ---
 
-### CA04 — Indisponibilidade durante o período de matrículas
+### CA04 — Indisponibilidade durante horário de pico
 
 **Ator:** atacante externo ou grupo de atacantes.
 
-**Objetivo:** impedir que os estudantes utilizem o sistema dentro do prazo.
+**Objetivo:** impedir que clientes e estabelecimentos usem o sistema durante o horário de maior movimento (ex.: almoço/jantar).
 
 **Condições necessárias:**
-
-- o sistema não limita requisições excessivas;
-- a infraestrutura não consegue absorver o volume de acessos;
-- não existem mecanismos suficientes de proteção contra sobrecarga.
+- o sistema não limita a quantidade de requisições por usuário/IP;
+- a infraestrutura não suporta picos de acesso muito acima do normal;
+- não existem mecanismos suficientes de proteção contra sobrecarga (rate limiting, CDN, autoscaling).
 
 **Fluxo de abuso:**
-
-1. O atacante identifica o período de maior utilização do sistema.
-2. O atacante envia uma grande quantidade de requisições ao portal ou à API.
+1. O atacante identifica o horário de maior demanda do aplicativo.
+2. O atacante envia uma grande quantidade de requisições ao app ou à API.
 3. Os recursos do sistema ficam sobrecarregados.
-4. Usuários legítimos recebem erros ou não conseguem acessar o sistema.
-5. Parte dos estudantes não consegue solicitar matrícula dentro do prazo.
+4. Clientes legítimos não conseguem fazer pedidos e estabelecimentos não recebem notificações.
+5. O serviço fica total ou parcialmente indisponível durante o período crítico.
 
-**Impacto esperado:** indisponibilidade, perda de prazos, aumento de solicitações administrativas e prejuízo aos estudantes.
+**Impacto esperado:** perda de vendas para os estabelecimentos, frustração dos clientes, prejuízo financeiro e de reputação para a plataforma.
 
 **Categorias STRIDE relacionadas:** Denial of Service.
-
-## 7. Considerações finais
-
-As ameaças consideradas mais preocupantes são o acesso indevido às contas, a alteração de matrículas e vagas, a obtenção de permissões administrativas e a indisponibilidade durante os períodos de maior demanda.
-
-Os ativos mais importantes são as credenciais, os dados pessoais e acadêmicos, as solicitações de matrícula, o número de vagas, as permissões e os registros das operações.
-
-Os casos de abuso com maior impacto são a obtenção de privilégios administrativos e o cancelamento de matrículas utilizando a conta de outro estudante, pois podem causar prejuízos acadêmicos diretos e comprometer a confiança no sistema.
-
-A principal dificuldade da análise foi diferenciar uma ameaça genérica de uma situação concreta relacionada ao sistema. A utilização do STRIDE ajudou a examinar o software sob diferentes perspectivas e a identificar ameaças que poderiam não ser percebidas em uma análise apenas funcional.

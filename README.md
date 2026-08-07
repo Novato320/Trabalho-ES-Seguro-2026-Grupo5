@@ -76,7 +76,13 @@ Entregador ───────────┘          ├──→ Serviço d
 
 ## 7. Considerações finais
 
----
+As ameaças consideradas mais preocupantes são o acesso indevido a contas de clientes e entregadores, a alteração de pedidos e pagamentos, e a indisponibilidade do sistema em horários de pico.
+
+Os ativos mais importantes são as credenciais de acesso, os dados pessoais e de pagamento, os endereços de entrega, o histórico de pedidos e os registros (logs) das operações.
+
+Os casos de abuso com maior impacto são a confirmação falsa de entrega e o acesso a pedidos/dados de terceiros por meio de conta roubada, pois envolvem diretamente prejuízo financeiro e violação de privacidade dos clientes.
+
+A principal dificuldade da análise foi diferenciar uma ameaça genérica de uma situação concreta relacionada ao sistema de delivery. A utilização do STRIDE ajudou a examinar o software sob diferentes perspectivas e a identificar ameaças que poderiam não ser percebidas em uma análise apenas funcional.
 
 ## 8. Análise e priorização de riscos
 

@@ -1,5 +1,5 @@
-Enunciado do Trabalho
-Orientações gerais
+# Enunciado do Trabalho
+## Orientações gerais
 As orientações desta seção são válidas para todas as etapas do trabalho. O mesmo sistema e o mesmo repositório deverão ser utilizados durante toda a disciplina, permitindo acompanhar a evolução da análise e das decisões de segurança.
 
 1. Repositório do grupo
@@ -104,7 +104,7 @@ O repositório deverá estar acessível ao professor até a data definida para a
 
 Todos os integrantes deverão verificar se seus commits estão corretamente associados às suas próprias contas do GitHub.
 
-Etapa 1 — Casos de Abuso e Modelagem de Ameaças com STRIDE
+## Etapa 1 — Casos de Abuso e Modelagem de Ameaças com STRIDE
 6. Objetivo
 O objetivo desta etapa é iniciar a análise de segurança de um sistema de software antes da implementação, identificando possíveis comportamentos maliciosos, ameaças e impactos relacionados ao funcionamento da aplicação.
 
@@ -266,7 +266,8 @@ qualidade dos diagramas, quando utilizados;
 organização do repositório;
 histórico de evolução do trabalho;
 participação individual demonstrada por meio dos commits.
-Etapa 2 — Análise, Priorização e Tratamento de Riscos com o NIST CSF
+
+## Etapa 2 — Análise, Priorização e Tratamento de Riscos com o NIST CSF
 10. Objetivo
 O objetivo desta etapa é continuar a análise iniciada na Etapa 1, transformando as ameaças e os casos de abuso identificados em riscos que possam ser avaliados, comparados, priorizados e tratados.
 
@@ -540,7 +541,7 @@ Realização prática: para grupos que já possuem um sistema implementado ou co
 Realização descritiva: para estudantes de semestres iniciais, que poderão apresentar pseudocódigo, exemplos, configurações, diagramas e descrições detalhadas de como realizariam a implementação.
 As duas possibilidades serão aceitas. A avaliação considerará principalmente a coerência com os riscos identificados, a qualidade das decisões, as justificativas, as evidências apresentadas e a participação individual.
 
-Etapa 3 — Projeto de uma Arquitetura Segura
+## Etapa 3 — Projeto de uma Arquitetura Segura
 17. Objetivo
 O objetivo desta etapa é transformar os riscos e controles definidos anteriormente em requisitos de segurança e decisões de arquitetura.
 
@@ -613,7 +614,7 @@ clareza do diagrama;
 qualidade das decisões;
 viabilidade da arquitetura proposta;
 participação individual demonstrada pelos commits.
-Etapa 4 — Código Seguro e Testes de Segurança
+## Etapa 4 — Código Seguro e Testes de Segurança
 20. Objetivo
 O objetivo desta etapa é demonstrar como as decisões da arquitetura seriam transformadas em práticas de implementação segura.
 
@@ -674,7 +675,7 @@ qualidade da implementação ou descrição;
 uso das referências da OWASP;
 clareza dos resultados esperados;
 participação individual nos commits.
-Etapa 5 — Verificação de Vulnerabilidades
+## Etapa 5 — Verificação de Vulnerabilidades
 23. Objetivo
 O objetivo desta etapa é utilizar uma ferramenta de teste de segurança para observar vulnerabilidades, alertas e configurações inseguras.
 
@@ -721,7 +722,7 @@ relação com riscos e vulnerabilidades estudados;
 qualidade das correções propostas;
 capacidade de reconhecer limitações e possíveis falsos positivos;
 participação individual.
-Etapa 6 — Monitoramento e Detecção de Intrusões
+## Etapa 6 — Monitoramento e Detecção de Intrusões
 27. Objetivo
 O objetivo desta etapa é compreender como um sistema pode identificar comportamentos suspeitos depois que entra em operação.
 
@@ -761,7 +762,7 @@ clareza das regras;
 coerência das respostas;
 qualidade do roteiro;
 participação individual nos commits.
-Etapa 7 — DevSecOps e Vídeo Final
+## Etapa 7 — DevSecOps e Vídeo Final
 30. Objetivo
 O objetivo desta etapa é integrar tudo o que foi produzido ao longo da disciplina e demonstrar como a segurança pode acompanhar continuamente o ciclo de desenvolvimento.
 
@@ -831,7 +832,7 @@ clareza e objetividade do vídeo;
 capacidade de apresentar decisões e aprendizados;
 qualidade do roteiro;
 participação individual.
-Checklist final simplificado
+## Checklist final simplificado
 Antes da entrega, o grupo deverá verificar se o repositório contém:
 
 Etapa 1 — ameaças STRIDE e casos de abuso;

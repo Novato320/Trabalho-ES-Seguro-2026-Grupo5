@@ -92,3 +92,106 @@
 **Impacto esperado:** perda de vendas para os estabelecimentos, frustração dos clientes, prejuízo financeiro e de reputação para a plataforma.
 
 **Categorias STRIDE relacionadas:** Denial of Service.
+
+---
+
+### CA05 — Acesso indevido ao painel administrativo
+
+**Ator:** entregador ou estabelecimento mal-intencionado (usuário autenticado com privilégios limitados).
+
+**Objetivo:** acessar funções administrativas da plataforma para alterar preços, cadastros, permissões de usuários ou dados sensíveis de outros estabelecimentos/entregadores.
+
+**Condições necessárias:**
+- o sistema não valida corretamente o papel (role/perfil) do usuário em cada requisição;
+- parâmetros de permissão são enviados pelo cliente (ex.: `?role=admin`) e confiados pelo backend;
+- não há revisão ou logs de auditoria para ações administrativas;
+- endpoints administrativos não estão isolados em rede ou com autenticação em múltiplos fatores.
+
+**Fluxo de abuso:**
+1. O atacante acessa o sistema com suas credenciais comuns (entregador ou estabelecimento).
+2. O atacante identifica uma URL ou parâmetro de requisição destinado a administradores (ex.: `/admin/usuarios`, `/admin/precos`).
+3. O atacante modifica a requisição para incluir um parâmetro como `role=admin` ou utiliza um token de acesso de baixo privilégio para chamar a API administrativa.
+4. O sistema, por falha de autorização, processa a requisição e retorna os dados ou permite as alterações.
+5. O atacante altera preços de produtos, desativa concorrentes, visualiza dados financeiros de outros estabelecimentos ou concede permissões indevidas a si mesmo.
+
+**Impacto esperado:** fraude financeira (alteração de preços), roubo de dados sensíveis de toda a plataforma, desconfiguração de cadastros, perda de confiança de clientes e parceiros, necessidade de rollback manual e correção emergencial.
+
+**Categorias STRIDE relacionadas:** Elevation of Privilege.
+
+---
+
+### CA06 — Manipulação de valores e itens no carrinho antes da confirmação
+
+**Ator:** atacante externo (interceptação de rede) ou usuário autenticado malicioso.
+
+**Objetivo:** reduzir o valor total do pedido, adicionar itens gratuitos ou aplicar descontos indevidos, causando prejuízo ao estabelecimento ou à plataforma.
+
+**Condições necessárias:**
+- o sistema não recalcula o valor total no backend a partir dos itens e preços vigentes;
+- a comunicação entre cliente e servidor não utiliza criptografia adequada (ex.: falta de HTTPS) ou a API confia cegamente nos valores enviados pelo cliente;
+- não há assinatura digital ou hash de integridade no payload da requisição;
+- o servidor não valida limites mínimos de preço ou quantidade de itens.
+
+**Fluxo de abuso:**
+1. O atacante inicia o processo de fechamento de um pedido legítimo.
+2. O atacante intercepta a requisição HTTP enviada ao backend (ou utiliza ferramentas de desenvolvedor do navegador para modificar o corpo da requisição).
+3. O atacante altera o campo `valorTotal` para um valor bem inferior (ex.: R$ 100,00 para R$ 10,00) ou modifica a lista de itens para incluir produtos caros sem alterar o preço final.
+4. O atacante envia a requisição adulterada.
+5. O backend processa o pedido com os dados falsificados, gerando uma ordem de pagamento com valor incorreto.
+6. O pagamento é aprovado pelo valor menor, e o estabelecimento prepara o pedido (com prejuízo).
+
+**Impacto esperado:** prejuízo financeiro direto ao estabelecimento e à plataforma, distorção de estoque e custos operacionais, necessidade de estorno e retrabalho, possível exploração em larga escala via scripts automatizados.
+
+**Categorias STRIDE relacionadas:** Tampering.
+
+---
+
+### CA07 — Cliente nega recebimento do pedido mesmo tendo recebido
+
+**Ator:** cliente mal-intencionado.
+
+**Objetivo:** obter reembolso integral ou novo envio do pedido, ficando com o produto e o dinheiro (ou com dois produtos pelo preço de um).
+
+**Condições necessárias:**
+- o sistema não exige comprovante de entrega confiável (foto, assinatura digital, código de confirmação enviado por SMS);
+- a política de reembolso é automatizada e baseada apenas na alegação do cliente;
+- os logs do sistema não são imutáveis ou não registram geolocalização do entregador no momento da entrega;
+- não há validação cruzada com o tempo de deslocamento ou com a confirmação do estabelecimento.
+
+**Fluxo de abuso:**
+1. O cliente faz um pedido normalmente e efetua o pagamento.
+2. O entregador realiza a entrega no endereço correto, e o cliente recebe o pedido fisicamente.
+3. O cliente acessa o aplicativo ou contata o suporte e alega que o pedido não foi entregue.
+4. O cliente solicita reembolso ou novo envio, afirmando que o entregador marcou como entregue indevidamente.
+5. O sistema, sem evidências robustas para refutar a alegação, aprova o reembolso ou reenvia o pedido.
+6. O cliente fica com o pedido original e recebe o dinheiro de volta (ou um segundo pedido).
+
+**Impacto esperado:** prejuízo financeiro recorrente para a plataforma e estabelecimentos, aumento de custos com frete e produção, desgaste da relação com entregadores, necessidade de equipe dedicada para análises manuais de fraude.
+
+**Categorias STRIDE relacionadas:** Repudiation.
+
+---
+
+### CA08 — Estabelecimento nega recebimento do pedido para não prepará-lo
+
+**Ator:** estabelecimento mal-intencionado.
+
+**Objetivo:** cancelar a comanda sem justificativa, evitar o preparo do pedido (por falta de insumos, preguiça ou por não querer arcar com comissões) sem que a plataforma possa responsabilizá-lo, mantendo eventuais pagamentos ou evitando multas.
+
+**Condições necessárias:**
+- o sistema não possui logs confiáveis e com timestamp da notificação enviada ao estabelecimento;
+- o estabelecimento pode marcar o pedido como "não recebido" ou "indisponível" sem passar por auditoria;
+- não há confirmação em duas vias (ex.: o estabelecimento deve clicar em "receber pedido" dentro de um prazo, e o sistema registra essa ação);
+- as notificações (push, e-mail, impressão) não são rastreáveis ou não geram comprovante de entrega da mensagem.
+
+**Fluxo de abuso:**
+1. O cliente realiza um pedido e o pagamento é aprovado pela plataforma.
+2. O sistema envia a notificação do pedido para o estabelecimento (via aplicativo, impressora térmica ou e-mail).
+3. O estabelecimento, de má-fé, alega que não recebeu a notificação ou que o sistema falhou ao registrar o pedido.
+4. O estabelecimento não prepara o pedido e, após um tempo, solicita o cancelamento manual.
+5. O sistema, sem evidências de que a notificação foi entregue ou visualizada, cancela o pedido e inicia o reembolso ao cliente.
+6. O cliente fica frustrado, a plataforma perde a venda e o estabelecimento evita o trabalho ou a comissão sem sofrer penalidades.
+
+**Impacto esperado:** perda de receita da plataforma, clientes insatisfeitos que migram para concorrentes, reputação do estabelecimento abalada (mesmo que de forma indireta), necessidade de auditoria manual e criação de mecanismos de prova de entrega de notificações.
+
+**Categorias STRIDE relacionadas:** Repudiation.

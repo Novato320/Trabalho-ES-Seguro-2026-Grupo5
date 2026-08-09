@@ -1,0 +1,48 @@
+@startuml
+title Diagrama de Casos de Abuso - Sistema de Delivery (Atualizado)
+left to right direction
+
+' Definição dos Atores
+actor "Atacante Externo" as AE
+actor "Usuário Autenticado" as UA
+actor "Entregador" as EN
+actor "Cliente" as CL
+actor "Estabelecimento" as ES
+
+' Sistema
+rectangle "Sistema de Delivery" {
+  usecase "CA01 – Cancelamento/alteração de pedido\npor conta roubada" as CA01
+  usecase "CA02 – Entregador confirma entrega\nsem realizá-la" as CA02
+  usecase "CA03 – Consulta indevida de dados\nde outros clientes" as CA03
+  usecase "CA04 – Indisponibilidade em horário de pico" as CA04
+  usecase "CA05 – Acesso indevido ao\npainel administrativo" as CA05
+  usecase "CA06 – Manipulação de valores\nitens no carrinho" as CA06
+  usecase "CA07 – Cliente nega recebimento\ndo pedido" as CA07
+  usecase "CA08 – Estabelecimento nega\nrecebimento do pedido" as CA08
+}
+
+' Relacionamentos (Atores → Casos de Abuso)
+AE --> CA01
+AE --> CA04
+AE --> CA06
+
+UA --> CA03
+
+EN --> CA02
+EN --> CA05
+
+CL --> CA07
+
+ES --> CA05
+ES --> CA08
+
+' Notas com as categorias STRIDE correspondentes
+note right of CA01 : Spoofing, Tampering, Repudiation
+note right of CA02 : Tampering, Repudiation
+note right of CA03 : Information Disclosure
+note right of CA04 : Denial of Service
+note right of CA05 : Elevation of Privilege
+note right of CA06 : Tampering
+note right of CA07 : Repudiation
+note right of CA08 : Repudiation
+@enduml

@@ -1,5 +1,5 @@
 ## 6. Casos de abuso
-[Diagrama de Casos de Abuso](../diagramas/casos-de-abuso.png)
+![Diagrama de Casos de Abuso](../diagramas/casos-de-abuso.png)
 
 ---
 

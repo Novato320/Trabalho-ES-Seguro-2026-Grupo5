@@ -1,4 +1,7 @@
 ## 6. Casos de abuso
+[../diagramas/casos-de-abuso.png]
+
+---
 
 ### CA01 — Cancelamento ou alteração de pedido por meio de conta roubada
 

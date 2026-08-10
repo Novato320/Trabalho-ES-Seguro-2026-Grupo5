@@ -96,6 +96,8 @@ A principal dificuldade da análise foi transformar as categorias gerais do STRI
 
 ## 10. [Requisitos de segurança e vulnerabilidades](docs/requisitos-e-vulnerabilidades.md)
 
+## 11. [Arquitetura Segura]
+
 ---
 
 ---

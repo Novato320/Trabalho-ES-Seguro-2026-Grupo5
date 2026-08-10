@@ -93,7 +93,7 @@ A probabilidade foi classificada como média-baixa porque o evento depende de um
 
 O impacto foi classificado como muito alto porque o acesso a funções administrativas pode permitir alteração de usuários, pedidos, permissões, estabelecimentos e outras informações críticas do sistema.
 
-### Priorização
+## Priorização
 
 A ordem inicial de prioridade é:
 

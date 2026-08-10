@@ -88,8 +88,8 @@ A principal dificuldade da análise foi diferenciar uma ameaça genérica de uma
 
 ---
 
-## 8. Análise e priorização de riscos
+## 8. [Análise e priorização de riscos](docs/matriz-de-risco.md)
 
-## 9. Tratamento dos riscos com o NIST CSF
+## 9. [Tratamento dos riscos com o NIST CSF](docs/)
 
 ---

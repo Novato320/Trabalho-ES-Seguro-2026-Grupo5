@@ -78,13 +78,13 @@ Entregador ───────────┘          ├──→ Serviço d
 
 ## 7. Considerações finais
 
-As ameaças consideradas mais preocupantes são o acesso indevido a contas de clientes e entregadores, a alteração de pedidos e pagamentos, e a indisponibilidade do sistema em horários de pico.
+A análise mostrou que os principais riscos de segurança do sistema de delivery estão concentrados em três frentes: proteção de identidade e privilégios, proteção dos dados e integridade das operações, e disponibilidade do serviço.
 
-Os ativos mais importantes são as credenciais de acesso, os dados pessoais e de pagamento, os endereços de entrega, o histórico de pedidos e os registros (logs) das operações.
+Os ativos mais críticos são as credenciais, os dados pessoais e de pagamento, os pedidos e os registros das operações, pois comprometimentos nesses elementos podem resultar em fraude, exposição de informações, alterações indevidas e dificuldade de responsabilização.
 
-Os casos de abuso com maior impacto são a confirmação falsa de entrega e o acesso a pedidos/dados de terceiros por meio de conta roubada, pois envolvem diretamente prejuízo financeiro e violação de privacidade dos clientes.
+Os casos de abuso também evidenciaram que uma mesma falha pode afetar diferentes partes do sistema. Problemas de autenticação e autorização podem levar tanto ao uso indevido de contas quanto ao acesso a funções administrativas, enquanto falhas de validação e auditoria podem permitir manipulação de pedidos ou dificultar a resolução de contestações.
 
-A principal dificuldade da análise foi diferenciar uma ameaça genérica de uma situação concreta relacionada ao sistema de delivery. A utilização do STRIDE ajudou a examinar o software sob diferentes perspectivas e a identificar ameaças que poderiam não ser percebidas em uma análise apenas funcional.
+A principal dificuldade da análise foi transformar as categorias gerais do STRIDE em situações concretas do sistema de delivery e diferenciar casos semelhantes, principalmente os relacionados à negação de operações. A modelagem permitiu identificar que a segurança do sistema depende de controles complementares de autenticação, autorização, integridade, rastreabilidade, confidencialidade e disponibilidade.
 
 ---
 

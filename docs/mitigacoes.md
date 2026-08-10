@@ -43,25 +43,27 @@ A aceitação de um risco não significa ignorá-lo. A decisão deve ser justifi
 
 | Risco                                                  | Govern | Identify | Protect | Detect | Respond | Recover |
 | ------------------------------------------------------ | :----: | :------: | :-----: | :----: | :-----: | :-----: |
-| R01 — Uso indevido de conta                            |   X    |    X     |    X    |   X    |    X    |    X    |
-| R02 — Alteração indevida de dados do pedido            |   X    |          |    X    |   X    |    X    |    X    |
+| R01 — Uso indevido de conta                            |   X    |          |    X    |   X    |    X    |    X    |
+| R02 — Alteração indevida de dados do pedido            |        |          |    X    |   X    |    X    |    X    |
 | R03 — Negação de uma operação de entrega               |   X    |          |    X    |   X    |    X    |         |
-| R04 — Acesso indevido a dados de outros usuários       |   X    |    X     |    X    |   X    |    X    |    X    |
+| R04 — Acesso indevido a dados de outros usuários       |   X    |          |    X    |   X    |    X    |    X    |
 | R05 — Indisponibilidade do sistema                     |   X    |    X     |    X    |   X    |    X    |    X    |
-| R06 — Obtenção indevida de privilégios administrativos |   X    |    X     |    X    |   X    |    X    |         |
+| R06 — Obtenção indevida de privilégios administrativos |   X    |          |    X    |   X    |         |         |
 
-O preenchimento da tabela indica quais funções precisam ser consideradas no tratamento de cada risco. A marcação não significa que todas as funções terão a mesma importância ou a mesma quantidade de controles.
+O preenchimento da tabela indica quais funções precisam ser consideradas no tratamento de cada risco. As marcações foram definidas de acordo com os controles e resultados esperados para cada situação, evitando associar automaticamente todas as funções a todos os riscos.
+
+Protect e Detect aparecem com maior frequência porque os controles propostos priorizam prevenção, validação, monitoramento e rastreabilidade. Govern foi associado aos riscos que dependem de políticas, responsabilidades ou revisão de permissões. Identify foi mantido quando o conhecimento de capacidade, dependências e recursos do sistema é especialmente relevante, como no risco de indisponibilidade. Respond e Recover foram associados aos riscos que exigem contenção, investigação, reversão ou restauração após um incidente.
 
 ## Plano de tratamento dos riscos
 
 | Risco | Controles propostos | Funções relacionadas | Responsáveis | Evidências e verificação |
 | ----- | ------------------- | -------------------- | ------------ | ------------------------ |
-| R01 — Uso indevido de conta | Autenticação multifator (MFA); bloqueio temporário após múltiplas tentativas de login malsucedidas; notificação ao usuário em caso de login em novo dispositivo; reautenticação antes de operações sensíveis | Protect, Detect, Respond e Recover | Equipe de desenvolvimento e infraestrutura | Testes de autenticação; análise de logs; simulação de conta comprometida; confirmação do envio de alertas |
+| R01 — Uso indevido de conta | Autenticação multifator (MFA); bloqueio temporário após múltiplas tentativas de login malsucedidas; notificação ao usuário em caso de login em novo dispositivo; reautenticação antes de operações sensíveis | Govern, Protect, Detect, Respond e Recover | Equipe de desenvolvimento e infraestrutura | Testes de autenticação; análise de logs; simulação de conta comprometida; confirmação do envio de alertas |
 | R02 — Alteração indevida de dados do pedido | Validar valores, itens e endereço no backend; recalcular o valor total do pedido no servidor; impedir que dados enviados pelo cliente sejam considerados confiáveis sem validação; registrar alterações relevantes | Protect, Detect, Respond e Recover | Equipe de desenvolvimento | Testes de validação; tentativa controlada de alteração de valores ou itens; análise de registros das operações |
 | R03 — Negação de uma operação de entrega | Utilizar confirmação da entrega por código fornecido pelo cliente; registrar mudanças de status do pedido com usuário, data e horário; proteger os registros de auditoria contra alterações indevidas | Govern, Protect, Detect e Respond | Equipe de desenvolvimento e operações | Teste do fluxo de confirmação de entrega; consulta aos logs; teste de rastreabilidade das alterações de status |
-| R04 — Acesso indevido a dados de outros usuários | Validar no backend se o recurso solicitado pertence ao usuário autenticado; utilizar identificadores não sequenciais para pedidos e usuários; proteger dados sensíveis em trânsito e em repouso; monitorar consultas anormais | Protect, Detect, Respond e Recover | Equipe de desenvolvimento e infraestrutura | Testes de autorização; tentativa controlada de acesso a pedidos de terceiros; análise de logs e revisão das permissões |
+| R04 — Acesso indevido a dados de outros usuários | Validar no backend se o recurso solicitado pertence ao usuário autenticado; utilizar identificadores não sequenciais para pedidos e usuários; proteger dados sensíveis em trânsito e em repouso; monitorar consultas anormais | Govern, Protect, Detect, Respond e Recover | Equipe de desenvolvimento e infraestrutura | Testes de autorização; tentativa controlada de acesso a pedidos de terceiros; análise de logs e revisão das permissões |
 | R05 — Indisponibilidade do sistema | Aplicar rate limiting por usuário e IP; monitorar picos de tráfego; utilizar escalabilidade da infraestrutura; empregar cache ou outros mecanismos para reduzir carga sobre o backend; utilizar serviços especializados quando necessário | Govern, Identify, Protect, Detect, Respond e Recover | Equipe de infraestrutura e desenvolvimento | Testes de carga; verificação dos limites de requisição; alertas de disponibilidade; simulação de sobrecarga e verificação da recuperação |
-| R06 — Obtenção indevida de privilégios administrativos | Utilizar controle de acesso baseado em papéis (RBAC); validar permissões no backend em todas as operações administrativas; separar rotas administrativas; aplicar princípio do menor privilégio e revisar permissões periodicamente | Govern, Identify, Protect e Detect | Equipe de desenvolvimento e administradores do sistema | Testes de controle de acesso; tentativa controlada de acesso administrativo com usuário sem permissão; revisão dos papéis e permissões |
+| R06 — Obtenção indevida de privilégios administrativos | Utilizar controle de acesso baseado em papéis (RBAC); validar permissões no backend em todas as operações administrativas; separar rotas administrativas; aplicar princípio do menor privilégio e revisar permissões periodicamente | Govern, Protect e Detect | Equipe de desenvolvimento e administradores do sistema | Testes de controle de acesso; tentativa controlada de acesso administrativo com usuário sem permissão; revisão dos papéis e permissões |
 
 ## Ordem inicial de implementação
 

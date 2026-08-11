@@ -37,3 +37,11 @@ As decisões apresentadas a seguir foram definidas a partir dos riscos prioritá
 **Componente afetado:** Serviço de autenticação e API / Backend.
 
 **Resultado esperado:** Reduzir a possibilidade de pagamentos, cancelamentos ou alterações de dados serem realizados por um atacante utilizando credenciais comprometidas.
+
+## Rastreabilidade da Etapa 3
+
+| Risco | Requisito | Vulnerabilidade relacionada | Decisão de arquitetura | Controle no diagrama |
+|---|---|---|---|---|
+| R05 | RS01 | OWASP API4:2023 / CWE-770 | DA01 | Rate limiting por IP/usuário na camada de borda/API |
+| R04 | RS02 | OWASP A01:2021 / CWE-639 | DA02 | Autorização por recurso no backend/Serviço de Pedidos |
+| R01 | RS03 | OWASP A07:2021 / CWE-287 | DA03 | MFA e reautenticação no Serviço de Autenticação |

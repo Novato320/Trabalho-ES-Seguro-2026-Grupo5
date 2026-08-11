@@ -98,7 +98,7 @@ A principal dificuldade da análise foi transformar as categorias gerais do STRI
 
 ## 11. [Arquitetura Segura]()
 
-## 12. [Decisões de arquitetura segura](docs/decisoes-de-arquitetura.md)
+---
 
 
 ---

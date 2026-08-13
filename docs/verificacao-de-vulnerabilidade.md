@@ -120,20 +120,98 @@ Essas medidas reduzem tanto a possibilidade de manipulação das consultas
 quanto a quantidade de informações internas disponibilizadas a possíveis
 atacantes.
 
-
-| ID | Alerta ou achado | Evidência | Possível impacto | Relação com OWASP ou CWE | Correção proposta |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **A01** | Possível Injeção SQL | O ZAP enviou o payload `'(` no parâmetro `q` do endpoint `/rest/products/search`. A aplicação respondeu `HTTP 500`, retornou `SQLITE_ERROR` e expôs a consulta SQL processada. O alerta foi classificado como risco Alto e confiança Baixa. | Possível acesso, alteração ou exposição indevida de dados caso a vulnerabilidade seja confirmada | **CWE-89 — SQL Injection** | Utilizar consultas parametrizadas (*prepared statements*), evitar concatenação direta de entradas em comandos SQL, validar entradas no servidor e não expor detalhes internos do banco nas respostas de erro |
-
-Como o alerta apresentou confiança baixa, seria necessária validação adicional para determinar se o comportamento representa uma vulnerabilidade explorável ou um possível falso positivo.
-
 ### A02 — A definir
 
 Análise sob responsabilidade de outro integrante do grupo.
 
-### A03 — A definir
+### A03 — Cabeçalho Anti-Clickjacking Ausente
 
-Análise sob responsabilidade de outro integrante do grupo.
+#### Identificação
+
+O OWASP ZAP identificou a ausência de proteção contra clickjacking nas
+respostas da aplicação, classificada como:
+
+- **Risco:** Médio
+- **Confiança:** Média
+- **CWE:** CWE-1021
+- **Parâmetro afetado:** `x-frame-options`
+- **Endpoint (exemplo):** `/socket.io/`
+- **Método:** POST
+
+O alerta foi produzido pelo scanner passivo do OWASP ZAP, que identificou
+2 ocorrências desse problema no site `http://localhost:3000` durante a
+sessão de varredura.
+
+#### Evidência técnica
+
+A requisição de exemplo capturada pelo ZAP foi:
+
+```
+POST http://localhost:3000/socket.io/?EIO=4&transport=polling&t=P_uJ01u&sid=SY454IND7UORI0hXAAAC HTTP/1.1
+Host: localhost:3000
+```
+
+A resposta correspondente não incluiu nenhum dos cabeçalhos de proteção
+contra enquadramento:
+
+```
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:4200
+Vary: Origin
+Content-Type: text/html
+Content-Length: 2
+```
+
+Não há `X-Frame-Options` nem `Content-Security-Policy` com a diretiva
+`frame-ancestors` na resposta, confirmando que a aplicação não impede que
+suas páginas sejam carregadas dentro de um `<iframe>` de terceiros.
+
+#### Impacto potencial
+
+Sem esse cabeçalho, um atacante pode incorporar a aplicação dentro de um
+`<iframe>` invisível em um site malicioso e sobrepor elementos enganosos
+sobre a interface real. Isso caracteriza um ataque de **clickjacking**: o
+usuário acredita estar clicando em um elemento do site do atacante, mas na
+verdade está interagindo com a aplicação vulnerável carregada por trás.
+
+Dependendo da ação induzida, isso pode resultar em:
+
+- execução de ações não intencionais em nome do usuário autenticado;
+- alteração de dados de conta sem consentimento;
+- confirmação indevida de pedidos ou pagamentos;
+- exposição do usuário a fraudes que dependem de sua sessão ativa.
+
+#### Relação com o sistema de delivery
+
+Em um sistema de delivery, ações sensíveis como confirmar um pedido,
+alterar um endereço de entrega ou aprovar um pagamento poderiam ser
+induzidas por meio de clickjacking caso o usuário esteja autenticado e
+acesse, sem saber, uma página maliciosa que embuta a aplicação.
+
+O achado se relaciona aos riscos de manipulação indevida de ações do
+usuário e comprometimento da integridade de operações consideradas nas
+etapas anteriores do trabalho.
+
+#### Mitigação recomendada
+
+Como medidas de mitigação, recomenda-se:
+
+- configurar o cabeçalho `X-Frame-Options: DENY` (ou `SAMEORIGIN`, caso
+  algum fluxo legítimo precise de frame do próprio domínio);
+- ou, de forma mais moderna, configurar
+  `Content-Security-Policy: frame-ancestors 'none'` (ou `'self'`), que
+  substitui o `X-Frame-Options` e cobre outros cenários de política de
+  segurança de conteúdo;
+- aplicar a configuração via middleware central no backend (ex.: `helmet`
+  em aplicações Express/Node), garantindo que o cabeçalho seja incluído
+  em todas as rotas, e não apenas nas testadas.
+
+| ID | Alerta ou achado | Evidência | Possível impacto | Relação com OWASP ou CWE | Correção proposta |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **A01** | Possível Injeção SQL | O ZAP enviou o payload `'(` no parâmetro `q` do endpoint `/rest/products/search`. A aplicação respondeu `HTTP 500`, retornou `SQLITE_ERROR` e expôs a consulta SQL processada. O alerta foi classificado como risco Alto e confiança Baixa. | Possível acesso, alteração ou exposição indevida de dados caso a vulnerabilidade seja confirmada | **CWE-89 — SQL Injection** | Utilizar consultas parametrizadas (*prepared statements*), evitar concatenação direta de entradas em comandos SQL, validar entradas no servidor e não expor detalhes internos do banco nas respostas de erro |
+| **A03** | Cabeçalho Anti-Clickjacking Ausente | Resposta do endpoint `/socket.io/` sem `X-Frame-Options` nem `Content-Security-Policy` com `frame-ancestors`. Risco Médio, confiança Média, 2 ocorrências no site. | Possibilidade de clickjacking: ações induzidas do usuário autenticado (ex.: confirmar pedido/pagamento) via iframe malicioso | **CWE-1021 — Improper Restriction of Rendered UI Layers or Frames** | Configurar `X-Frame-Options: DENY`/`SAMEORIGIN` ou `Content-Security-Policy: frame-ancestors`, aplicado via middleware central no backend |
+
+Como o alerta de SQL Injection apresentou confiança baixa, seria necessária validação adicional para determinar se o comportamento representa uma vulnerabilidade explorável ou um possível falso positivo.
 
 ## 6. Limitações da verificação
 

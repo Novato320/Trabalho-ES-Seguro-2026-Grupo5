@@ -72,14 +72,14 @@ determinar se o comportamento representa uma atividade suspeita.
 
 ## Regra 2 de detecção
 
-A Regra 2 está relacionada ao risco **R04 — Acesso indevido a dados de outros usuários**, identificado na Etapa 2 como um risco de nível **crítico**, decorrente de falhas no controle de autorização por recurso (IDOR) que poderiam permitir a um usuário autenticado consultar pedidos, endereços, pagamentos ou informações pessoais de terceiros.
+A Regra 2 está relacionada ao risco **R04 — Acesso indevido a dados de outros usuários**, identificado na Etapa 2 como um risco de nível **crítico**, decorrente de falhas no controle de autorização por recurso que poderiam permitir a um usuário autenticado consultar informações pessoais de outros usuários.
 
 | Campo | Descrição |
 | :--- | :--- |
-| **Risco observado** | R04 — Acesso indevido a dados de outros usuários. Um usuário autenticado (cliente, estabelecimento ou entregador) tenta acessar, por meio de manipulação de identificadores (ex.: ID de pedido, ID de usuário, ID de endereço), recursos que não lhe pertencem, obtendo informações sensíveis de terceiros sem autorização. |
-| **Fonte de dados** | Logs de autorização e de acesso a recursos sensíveis (endpoints de pedidos, endereços, pagamentos, entregas e dados cadastrais), contendo o identificador do recurso solicitado, o ID do usuário autenticado, a rota acessada e o resultado da verificação de propriedade (autorizado ou negado). |
-| **Condição de alerta** | Um usuário tem um número elevado de acessos negados por falha de autorização (retorno HTTP 403/404) a recursos de outros usuários em um curto intervalo de tempo, ou uma mesma conta realiza tentativas de acesso a uma sequência de IDs (ex.: `/pedidos/1`, `/pedidos/2`, `/pedidos/3`...) que não seguem um padrão de navegação natural (indicando enumeração ou varredura). Além disso, tentativas a recursos de usuários com IDs muito distantes do seu próprio ID (ex.: cliente com ID `100` tentando acessar pedidos de ID `99999`) também devem ser consideradas suspeitas. |
-| **Resposta inicial** | Gerar alerta de alta severidade para a equipe de segurança, bloquear temporariamente o acesso do usuário ao endpoint específico (ou a todos os endpoints sensíveis) por um período curto (ex.: 15 minutos) para evitar enumeração massiva, e registrar os detalhes da tentativa (logs imutáveis). A equipe deve analisar a origem (IP, agente) e o histórico de ações da conta para determinar se o comportamento é legítimo ou malicioso; em caso de confirmação de ataque, a conta deve ser suspensa e o usuário notificado para redefinição de senha e reautenticação. |
+| **Risco observado** | R04 — Acesso indevido a dados de outros usuários. Um usuário autenticado tenta acessar recursos que não lhe pertencem, obtendo informações sensíveis de terceiros. |
+| **Fonte de dados** | Logs de autorização e de acesso a recursos sensíveis, contendo o identificador do recurso solicitado, o ID do usuário autenticado, a rota acessada e o resultado da verificação de propriedade (autorizado ou negado). |
+| **Condição de alerta** | Um usuário tem um número elevado de acessos negados por falha de autorização a recursos de outros usuários em um curto intervalo de tempo, ou uma mesma conta realiza tentativas de acesso a uma sequência de IDs que não seguem um padrão de navegação natural (indicando enumeração ou varredura). |
+| **Resposta inicial** | Gerar alerta de alta severidade para a equipe de segurança, bloquear temporariamente o acesso do usuário ao endpoint específico (ou a todos os endpoints sensíveis) por um período curto para evitar enumeração massiva, e registrar os detalhes da tentativa. O histórico é revisado pela equipe para determinar se o comportamento é malicioso, em caso de confirmação, a conta deve ser suspensa e o usuário notificado para redefinição de senha e reautenticação. |
 ---
 
 ## Regra 3 de detecção

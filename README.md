@@ -15,43 +15,23 @@ O Sistema de Aplicativo de Delivery permite que clientes consultem estabelecimen
 
 ---
 
-## 3. Usuários, ativos e pontos de interação
-### 3.1 Usuários e perfis de acesso
+## 3. Visão geral do sistema
+
+O sistema de delivery possui quatro perfis principais de usuário:
 
 - **Cliente:** consulta estabelecimentos e produtos, realiza pedidos, efetua pagamentos e acompanha o andamento da entrega.
 - **Estabelecimento:** gerencia produtos, preços, disponibilidade e pedidos recebidos.
 - **Entregador:** visualiza entregas atribuídas e atualiza o status da entrega.
 - **Administrador:** gerencia usuários, permissões, configurações e atividades administrativas do sistema.
 
-### 3.2 Ativos importantes
+Entre os principais ativos protegidos estão credenciais, dados pessoais,
+endereços, informações de pagamento, pedidos, entregas e registros de
+auditoria.
 
-Os principais ativos que precisam ser protegidos são:
-
-- credenciais de acesso dos usuários;
-- dados pessoais, como nome, telefone e e-mail;
-- endereços e informações de localização;
-- histórico e informações dos pedidos;
-- dados relacionados aos pagamentos;
-- informações dos estabelecimentos e entregadores;
-- avaliações realizadas pelos usuários;
-- registros e logs das operações;
-- banco de dados do sistema.
-
-O acesso, alteração, divulgação ou indisponibilidade indevida desses ativos pode causar prejuízos financeiros, exposição de informações pessoais, fraudes e perda de confiança no sistema.
-
-### 3.3 Pontos de interação
-
-Os principais pontos de interação do sistema são:
-
-- aplicativo ou interface utilizada pelo cliente;
-- interface utilizada pelos estabelecimentos;
-- interface utilizada pelos entregadores;
-- API/backend do sistema;
-- banco de dados;
-- serviço externo de pagamento;
-- serviços de localização e mapas.
-
-## 4. Visão geral do sistema
+Os usuários interagem com o sistema por meio das interfaces da aplicação,
+que se comunicam com a API/backend. O backend concentra as regras de negócio,
+o controle de acesso e a comunicação com o banco de dados e serviços externos,
+como pagamento e localização.
 
 ### Fluxo funcional simplificado
 
@@ -69,64 +49,67 @@ Este fluxo apresenta apenas a comunicação geral entre os principais
 componentes. A arquitetura com os controles de segurança definidos ao longo
 do projeto está detalhada na [Etapa 3 — Arquitetura Segura](docs/arquitetura.md).
 
-## 5. Etapa 1 — Modelagem de Ameaças e Casos de Abuso
+---
 
-### 5.1 [Modelagem de Ameaças com STRIDE](docs/modelagem-de-ameacas.md)
+## 4. Etapa 1 — Modelagem de Ameaças e Casos de Abuso
 
-### 5.2 [Casos de abuso](docs/casos-de-abuso.md)
+### 4.1 [Modelagem de Ameaças com STRIDE](docs/modelagem-de-ameacas.md)
+
+### 4.2 [Casos de abuso](docs/casos-de-abuso.md)
 
 ---
 
-## 6. Etapa 2 - Análise, Priorização e Tratamento de Riscos
+## 5. Etapa 2 — Análise, Priorização e Tratamento de Riscos
 
-### 6.1 [Análise e priorização de riscos](docs/matriz-de-risco.md)
+### 5.1 [Análise e priorização de riscos](docs/matriz-de-risco.md)
 
-### 6.2 [Tratamento dos riscos com o NIST CSF](docs/mitigacoes.md)
+### 5.2 [Tratamento dos riscos com o NIST CSF](docs/mitigacoes.md)
 
-### 6.3 [Resposta a incidentes](docs/resposta-a-incidentes.md)
-
----
-
-## 7. Etapa 3 — Requisitos, Vulnerabilidades e Arquitetura Segura
-
-### 7.1 [Requisitos de segurança e vulnerabilidades](docs/requisitos-e-vulnerabilidades.md)
-
-### 7.2 [Arquitetura Segura e Decisões Arquiteturais](docs/arquitetura.md)
+### 5.3 [Resposta a incidentes](docs/resposta-a-incidentes.md)
 
 ---
 
-## 8. Etapa 4 — Código Seguro e Testes de Segurança
+## 6. Etapa 3 — Requisitos, Vulnerabilidades e Arquitetura Segura
 
-### 8.1 [Prática — Controle de autorização por recurso](pratica/pratica-autorizacao.md)
+### 6.1 [Requisitos de segurança e vulnerabilidades](docs/requisitos-e-vulnerabilidades.md)
 
-### 8.2 [Prática — Reautenticação para operações sensíveis](pratica/pratica-reautenticacao.md)
----
-
-## 9. Etapa 5 — Verificação de Vulnerabilidades
-
-### 9.1 [Análise da verificação com OWASP ZAP](docs/verificacao-de-vulnerabilidades.md)
-
-### 9.2 [Evidências da execução](evidencias/etapa-5/)
+### 6.2 [Arquitetura Segura e Decisões Arquiteturais](docs/arquitetura.md)
 
 ---
 
-## 10. Etapa 6 — Monitoramento e Detecção de Intrusões
+## 7. Etapa 4 — Código Seguro e Testes de Segurança
 
-### 10.1 [Roteiro de detecção de intrusões](roteiros/etapa-6-deteccao-de-intrusoes.md)
+### 7.1 [Prática — Controle de autorização por recurso](pratica/pratica-autorizacao.md)
+
+### 7.2 [Prática — Reautenticação para operações sensíveis](pratica/pratica-reautenticacao.md)
 
 ---
 
-## 11. Etapa 7 — DevSecOps e Vídeo Final
+## 8. Etapa 5 — Verificação de Vulnerabilidades
 
-### 11.1 [Pipeline DevSecOps e roteiro do vídeo](roteiros/etapa-7-devsecops-e-video-final.md)
+### 8.1 [Análise da verificação com OWASP ZAP](docs/verificacao-de-vulnerabilidades.md)
 
-### 11.2 Vídeo final
+### 8.2 [Evidências da execução](evidencias/etapa-5/)
+
+---
+
+## 9. Etapa 6 — Monitoramento e Detecção de Intrusões
+
+### 9.1 [Roteiro de detecção de intrusões](roteiros/etapa-6-deteccao-de-intrusoes.md)
+
+---
+
+## 10. Etapa 7 — DevSecOps e Vídeo Final
+
+### 10.1 [Pipeline DevSecOps e roteiro do vídeo](roteiros/etapa-7-devsecops-e-video-final.md)
+
+### 10.2 Vídeo final
 
 [INSERIR LINK OU LOCAL DO VÍDEO]
 
 ---
 
-## 12. Considerações finais
+## 11. Considerações finais
 
 A análise mostrou que os principais riscos de segurança do sistema de delivery estão concentrados em três frentes: proteção de identidade e privilégios, proteção dos dados e integridade das operações, e disponibilidade do serviço.
 

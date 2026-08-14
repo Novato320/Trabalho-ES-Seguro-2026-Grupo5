@@ -120,8 +120,6 @@ Essas medidas reduzem tanto a possibilidade de manipulação das consultas
 quanto a quantidade de informações internas disponibilizadas a possíveis
 atacantes.
 
-### A02 — Content Security Policy(CSP) Header Not Set
-
 ### A02 — Content Security Policy (CSP) Header Not Set
 
 #### Identificação
@@ -286,9 +284,12 @@ Como medidas de mitigação, recomenda-se:
   em aplicações Express/Node), garantindo que o cabeçalho seja incluído
   em todas as rotas, e não apenas nas testadas.
 
+### Resumo dos alertas analisados
+
 | ID | Alerta ou achado | Evidência | Possível impacto | Relação com OWASP ou CWE | Correção proposta |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **A01** | Possível Injeção SQL | O ZAP enviou o payload `'(` no parâmetro `q` do endpoint `/rest/products/search`. A aplicação respondeu `HTTP 500`, retornou `SQLITE_ERROR` e expôs a consulta SQL processada. O alerta foi classificado como risco Alto e confiança Baixa. | Possível acesso, alteração ou exposição indevida de dados caso a vulnerabilidade seja confirmada | **CWE-89 — SQL Injection** | Utilizar consultas parametrizadas (*prepared statements*), evitar concatenação direta de entradas em comandos SQL, validar entradas no servidor e não expor detalhes internos do banco nas respostas de erro |
+| **A02** | Content Security Policy (CSP) Header Not Set | O ZAP identificou a ausência do cabeçalho `Content-Security-Policy` em múltiplas respostas da aplicação. No exemplo de `/sitemap.xml`, outros cabeçalhos de segurança estavam presentes, mas o CSP estava ausente. O alerta foi classificado como risco Médio e confiança Alta. | A ausência de CSP reduz a proteção do navegador contra carregamento e execução de conteúdo não autorizado, podendo ampliar o impacto de vulnerabilidades como XSS e injeção de conteúdo. | **CWE-693 — Protection Mechanism Failure** | Configurar o cabeçalho `Content-Security-Policy` nas respostas HTTP, restringindo as fontes permitidas de scripts e outros recursos e evitando `unsafe-inline` e `unsafe-eval` sempre que possível. |
 | **A03** | Cabeçalho Anti-Clickjacking Ausente | Resposta do endpoint `/socket.io/` sem `X-Frame-Options` nem `Content-Security-Policy` com `frame-ancestors`. Risco Médio, confiança Média, 2 ocorrências no site. | Possibilidade de clickjacking: ações induzidas do usuário autenticado (ex.: confirmar pedido/pagamento) via iframe malicioso | **CWE-1021 — Improper Restriction of Rendered UI Layers or Frames** | Configurar `X-Frame-Options: DENY`/`SAMEORIGIN` ou `Content-Security-Policy: frame-ancestors`, aplicado via middleware central no backend |
 
 Como o alerta de SQL Injection apresentou confiança baixa, seria necessária validação adicional para determinar se o comportamento representa uma vulnerabilidade explorável ou um possível falso positivo.

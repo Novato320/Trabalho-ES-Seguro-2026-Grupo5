@@ -9,7 +9,7 @@
 
 ---
 
-## 1. Planejamento e Modelagem de Ameaças (Jaques)
+## 1. Planejamento e Modelagem de Ameaças
 
 ### 1.1 Modelagem STRIDE
 _(preencher: ameaças identificadas por categoria — Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)_
@@ -141,7 +141,7 @@ sejam levados diretamente para o ambiente de produção.
 
 ---
 
-## 3. Implantação, Monitoramento e Resposta (Dornelles)
+## 3. Implantação, Monitoramento e Resposta
 
 ### 3.1 Implantação Segura
 

@@ -166,7 +166,7 @@ Essa ausência impede o navegador de restringir as fontes de conteúdo que podem
 A falta do cabeçalho CSP permite que um atacante, caso consiga injetar código malicioso na aplicação (por exemplo, via XSS), possa carregar scripts, imagens ou outros recursos de domínios controlados por ele, sem que o navegador impeça tais carregamentos. Isso amplifica o impacto de outras vulnerabilidades, pois:
 
 - scripts maliciosos podem ser executados no contexto da vítima;
-- dados sensíveis podem ser exfiltrados para servidores externos;
+- dados sensíveis podem ser exfiltrados(informações roubadas ou copiadas sem permissão de um computador, rede ou sistema e enviadas para um local externo) para servidores externos;
 - a página pode ser adulterada visualmente (defacement);
 - a confiança do usuário na aplicação pode ser comprometida.
 

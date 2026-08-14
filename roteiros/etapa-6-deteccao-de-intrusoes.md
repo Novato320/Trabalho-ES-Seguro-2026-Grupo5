@@ -72,7 +72,7 @@ determinar se o comportamento representa uma atividade suspeita.
 
 ## Regra 2 de detecção
 
-*(preencher — responsável: Jaques)*
+A Regra 2 está relacionada ao risco **R04 — Acesso indevido a dados de outros usuários**, identificado na Etapa 2 como um risco de nível **crítico**, decorrente de falhas no controle de autorização por recurso (IDOR) que poderiam permitir a um usuário autenticado consultar pedidos, endereços, pagamentos ou informações pessoais de terceiros.
 
 | Campo | Descrição |
 |---|---|

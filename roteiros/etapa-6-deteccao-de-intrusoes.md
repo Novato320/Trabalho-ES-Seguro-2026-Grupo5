@@ -2,24 +2,71 @@
 
 ## Introdução
 
-*(preencher — responsável: [seu nome])*
+A detecção de intrusões consiste no monitoramento de eventos e comportamentos
+do sistema com o objetivo de identificar atividades suspeitas, tentativas de
+ataque, uso indevido de contas ou ações que possam indicar um incidente de
+segurança.
 
-- O que é detecção de intrusões
-- Diferença entre prevenção e detecção
-- Quais eventos do sistema deveriam ser registrados
+A prevenção e a detecção possuem funções diferentes, mas complementares.
+A prevenção utiliza controles destinados a impedir ou reduzir a probabilidade
+de um incidente, como autenticação multifator, controle de autorização,
+validação de dados no backend e limitação de requisições. A detecção, por
+outro lado, busca identificar comportamentos suspeitos que estejam ocorrendo
+ou que já tenham ocorrido, permitindo que a equipe responsável inicie uma
+resposta.
+
+Por exemplo, limitar repetidas tentativas de autenticação é uma medida
+preventiva. Registrar essas tentativas e gerar um alerta ao identificar um
+comportamento anormal é uma medida de detecção.
+
+Para permitir esse monitoramento, o sistema de delivery deveria registrar
+eventos relevantes de segurança, como:
+
+- tentativas de autenticação bem-sucedidas e malsucedidas;
+- bloqueios temporários de contas;
+- falhas em verificações adicionais de autenticação;
+- acessos negados por falha de autorização;
+- tentativas de acesso a recursos pertencentes a outros usuários;
+- alterações e cancelamentos de pedidos;
+- alterações no status das entregas;
+- operações realizadas por contas administrativas;
+- alterações de permissões ou papéis de usuários;
+- grande quantidade de requisições em um curto período;
+- erros relevantes da aplicação e do banco de dados;
+- eventos relacionados a pagamentos.
+
+Sempre que possível, esses registros devem conter informações suficientes
+para investigação, como data e horário, usuário envolvido, origem da
+requisição, operação realizada, recurso acessado e resultado da ação.
+
+Os logs também devem evitar o armazenamento desnecessário de informações
+sensíveis, como senhas, tokens de autenticação completos ou dados de
+pagamento.
 
 ---
 
 ## Regra 1 de detecção
 
-*(preencher — responsável: Ortiz)*
+A Regra 1 está relacionada ao risco **R01 — Uso indevido de conta**, identificado
+nas etapas anteriores do projeto. O objetivo é detectar um possível acesso
+não autorizado por meio da observação de repetidas falhas de autenticação.
 
 | Campo | Descrição |
 |---|---|
-| Risco observado | |
-| Fonte de dados | |
-| Condição de alerta | |
-| Resposta inicial | |
+| **Risco observado** | R01 — Uso indevido de conta. Um atacante pode realizar repetidas tentativas de autenticação buscando obter acesso indevido à conta de um usuário. |
+| **Fonte de dados** | Logs de autenticação, contendo informações sobre tentativas bem-sucedidas e malsucedidas, conta envolvida, horário e origem da requisição. |
+| **Condição de alerta** | Múltiplas tentativas de autenticação malsucedidas para a mesma conta em um curto intervalo de tempo. |
+| **Resposta inicial** | Gerar um alerta para a equipe responsável, limitar temporariamente novas tentativas de autenticação e analisar os registros relacionados à conta e à origem das requisições. |
+
+Uma falha isolada de autenticação pode ocorrer por um erro legítimo do
+usuário. Entretanto, várias tentativas malsucedidas para a mesma conta em
+um curto período podem indicar uma tentativa de descoberta de credenciais
+ou de acesso não autorizado.
+
+A partir dos logs de autenticação, o sistema poderia identificar esse padrão
+e gerar um alerta. A equipe responsável poderia então analisar informações
+como horário das tentativas, conta envolvida e origem das requisições para
+determinar se o comportamento representa uma atividade suspeita.
 
 ---
 

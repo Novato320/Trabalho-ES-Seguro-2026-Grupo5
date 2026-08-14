@@ -120,10 +120,90 @@ Essas medidas reduzem tanto a possibilidade de manipulação das consultas
 quanto a quantidade de informações internas disponibilizadas a possíveis
 atacantes.
 
-### A02 — A definir
+### A02 — Content Security Policy(CSP) Header Not Set
 
-Análise sob responsabilidade de outro integrante do grupo.
+### A02 — Content Security Policy (CSP) Header Not Set
 
+#### Identificação
+
+O OWASP ZAP identificou a ausência do cabeçalho de segurança **Content-Security-Policy** em diversas respostas da aplicação, classificando o achado como:
+
+- **Risco:** Médio  
+- **Confiança:** Alta  
+- **CWE:** CWE-693  
+- **Parâmetro afetado:** N/A (trata-se de cabeçalho HTTP ausente)  
+- **Endpoint:** Múltiplos, incluindo `/sitemap.xml`, `/scripts.js`, `/styles.css`, `/main.js` e requisições ao socket.io  
+- **Método:** GET (e também POST em alguns casos)
+
+O alerta foi produzido pelo scanner passivo do OWASP ZAP durante a varredura, identificando que o cabeçalho `Content-Security-Policy` não é enviado em nenhuma das respostas analisadas.
+
+#### Evidência técnica
+
+Durante a análise, o ZAP observou que as respostas da aplicação não incluíam o cabeçalho `Content-Security-Policy`. Por exemplo, para a requisição:
+
+```
+GET http://localhost:3000/sitemap.xml HTTP/1.1
+```
+
+A resposta obtida foi:
+
+```
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Feature-Policy: payment 'self'
+X-Recruiting: /#/jobs
+...
+Content-Type: text/html; charset=UTF-8
+...
+```
+
+Observa-se que, embora outros cabeçalhos de segurança estejam presentes (como `X-Content-Type-Options` e `X-Frame-Options`), o cabeçalho `Content-Security-Policy` está **ausente**. O mesmo padrão se repete em todas as demais respostas verificadas, incluindo arquivos JavaScript, CSS e endpoints da API.
+
+Essa ausência impede o navegador de restringir as fontes de conteúdo que podem ser carregadas pela página, deixando a aplicação mais suscetível a ataques como Cross-Site Scripting (XSS) e injeção de dados.
+
+#### Impacto potencial
+
+A falta do cabeçalho CSP permite que um atacante, caso consiga injetar código malicioso na aplicação (por exemplo, via XSS), possa carregar scripts, imagens ou outros recursos de domínios controlados por ele, sem que o navegador impeça tais carregamentos. Isso amplifica o impacto de outras vulnerabilidades, pois:
+
+- scripts maliciosos podem ser executados no contexto da vítima;
+- dados sensíveis podem ser exfiltrados para servidores externos;
+- a página pode ser adulterada visualmente (defacement);
+- a confiança do usuário na aplicação pode ser comprometida.
+
+Além disso, a ausência de CSP facilita ataques de *clickjacking* (embora já haja proteção via `X-Frame-Options`, a combinação com CSP oferece defesa mais robusta), e também pode permitir a execução de scripts inline ou eval, que são práticas desaconselhadas por questões de segurança.
+
+#### Relação com o sistema de delivery
+
+Em um sistema de delivery, o CSP é particularmente relevante para proteger funcionalidades que envolvem transações financeiras, dados de clientes e informações de pedidos. A ausência desse cabeçalho aumenta o risco de que, na eventualidade de um XSS, um atacante possa:
+
+- capturar credenciais ou tokens de sessão de usuários logados;
+- modificar o conteúdo da página para exibir ofertas falsas ou redirecionar para páginas de phishing;
+- interferir no processo de checkout, desviando pagamentos ou alterando valores;
+- coletar dados de cartão de crédito inseridos em formulários.
+
+Portanto, a correção dessa falha contribui diretamente para a proteção da confidencialidade e integridade dos dados dos clientes e da operação do sistema.
+
+#### Mitigação recomendada
+
+Recomenda-se configurar o servidor web, o balanceador de carga ou a própria aplicação para incluir o cabeçalho `Content-Security-Policy` em todas as respostas HTTP. A política deve ser definida de acordo com as necessidades específicas do sistema, restringindo as fontes de conteúdo a domínios confiáveis.
+
+Diretrizes para implementação:
+
+- definir uma política que restrinja `default-src` a `'self'` e, se necessário, incluir domínios confiáveis para recursos externos (ex.: CDNs, APIs);
+- evitar o uso de `unsafe-inline` e `unsafe-eval` sempre que possível;
+- utilizar o modo `report-uri` ou `report-to` para monitorar violações antes de aplicar uma política restritiva em produção;
+- testar a política exaustivamente antes da implantação para evitar quebras de funcionalidade;
+- utilizar ferramentas como o [CSP Evaluator](https://csp-evaluator.withgoogle.com/) para validar a política.
+
+Exemplo de política inicial (adaptável):
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted-cdn.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.example.com; frame-ancestors 'none';
+```
+
+A implementação adequada do CSP reduz significativamente a superfície de ataque e dificulta a exploração de vulnerabilidades como XSS, mesmo que estas venham a existir.
 ### A03 — Cabeçalho Anti-Clickjacking Ausente
 
 #### Identificação

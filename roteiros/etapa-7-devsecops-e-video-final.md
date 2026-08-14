@@ -25,19 +25,119 @@ _(preencher: onde cada controle se encaixa no pipeline CI/CD)_
 
 ---
 
-## 2. Implementação Segura e Testes (Ortiz)
+## 2. Implementação Segura e Testes 
 
 ### 2.1 Práticas de Implementação Segura
-_(preencher: código seguro, SAST, dependências, secrets, etc.)_
+
+Na etapa de implementação, a segurança deve ser incorporada ao desenvolvimento
+e não tratada apenas como uma verificação realizada ao final do projeto.
+
+Na Etapa 4 foram documentadas práticas de código seguro relacionadas aos
+riscos e requisitos identificados anteriormente. Entre elas, foi utilizada
+a reautenticação para operações sensíveis, relacionada ao risco **R01 — Uso
+indevido de conta**. Nesse controle, operações de maior impacto, como o
+cancelamento de um pedido, somente devem ser executadas após a confirmação de
+que o recurso pertence ao usuário e de que uma verificação adicional foi
+concluída.
+
+Também foi documentado o controle de autorização por recurso, no qual o
+backend verifica se o usuário autenticado possui autorização para acessar o
+recurso solicitado antes de executar a operação. Essa prática reduz a
+possibilidade de acesso indevido a pedidos, endereços ou outros dados
+pertencentes a terceiros.
+
+Em um pipeline DevSecOps, essas práticas devem fazer parte do desenvolvimento
+e da revisão do código. Além disso, podem ser incorporadas verificações
+automatizadas, como análise estática de código (SAST), análise de dependências
+e identificação de segredos ou credenciais adicionados indevidamente ao
+repositório.
+
+---
 
 ### 2.2 Testes de Segurança
-_(preencher: testes automatizados incorporados ao pipeline)_
+
+Os controles de segurança devem ser acompanhados por testes que verifiquem
+tanto os comportamentos permitidos quanto os comportamentos que devem ser
+bloqueados.
+
+Na Etapa 4, os testes de segurança foram definidos antes dos pseudocódigos das
+soluções. Na prática de reautenticação, por exemplo, foram considerados um
+cenário válido, no qual o usuário autorizado conclui a verificação adicional,
+e um cenário inválido, no qual a operação sensível é recusada quando essa
+verificação não é concluída.
+
+Da mesma forma, o controle de autorização por recurso considera um cenário em
+que o usuário acessa seu próprio recurso e outro em que tenta acessar um
+recurso pertencente a outro usuário, situação que deve ser recusada e
+registrada.
+
+Em um pipeline DevSecOps, esses testes devem ser executados automaticamente
+antes que uma nova versão avance para as próximas etapas. Uma falha em um
+teste relacionado a autenticação, autorização ou outra funcionalidade
+sensível deve impedir a continuidade do pipeline até que o problema seja
+analisado e corrigido.
+
+---
 
 ### 2.3 OWASP ZAP
-_(preencher: configuração, escopo do scan, resultados)_
+
+A verificação dinâmica da aplicação foi representada na Etapa 5 por uma sessão
+de análise utilizando o **OWASP ZAP** contra uma instância local e autorizada
+do **OWASP Juice Shop**, disponibilizada em `http://localhost:3000`.
+
+Foram utilizados mecanismos de descoberta da aplicação e varredura ativa.
+Entre os alertas analisados pelo grupo estavam:
+
+- **A01 — Possível SQL Injection:** risco Alto e confiança Baixa, relacionado
+  ao CWE-89;
+- **A02 — Content Security Policy (CSP) Header Not Set:** risco Médio e
+  confiança Alta;
+- **A03 — Cabeçalho Anti-Clickjacking Ausente:** risco Médio e confiança
+  Média.
+
+No pipeline proposto, uma verificação dinâmica como essa deve ocorrer antes
+da implantação. Os resultados não devem ser tratados automaticamente como
+vulnerabilidades confirmadas, pois ferramentas automatizadas podem produzir
+resultados que necessitam de validação adicional.
+
+Achados relevantes devem ser analisados de acordo com risco, confiança,
+impacto e contexto da aplicação. Vulnerabilidades graves confirmadas ou
+achados de alto risco ainda não analisados devem impedir que a versão avance
+para implantação.
+
+---
 
 ### 2.4 Gates / Condições que Impedem o Avanço do Pipeline
-_(preencher: critérios de bloqueio — ex.: vulnerabilidades críticas, falha de testes)_
+Os gates de segurança representam condições que precisam ser satisfeitas
+antes que uma versão possa avançar para a próxima etapa do pipeline.
+
+Neste pipeline, a continuidade deverá ser impedida quando ocorrer pelo menos
+uma das seguintes situações:
+
+1. **Teste de segurança reprovado:** falhas em testes relacionados a
+   autenticação, autorização ou operações sensíveis devem ser corrigidas antes
+   do avanço da versão.
+
+2. **Vulnerabilidade crítica ou de alto risco sem análise ou tratamento:**
+   um achado relevante identificado por ferramentas como o OWASP ZAP não deve
+   ser ignorado. Quando a confiança da ferramenta for baixa, o resultado deve
+   ser analisado antes da decisão de liberar ou bloquear a versão.
+
+3. **Segredo ou credencial encontrado no repositório:** senhas, tokens, chaves
+   de API ou outras credenciais não devem permanecer versionadas no
+   código-fonte.
+
+4. **Dependência conhecida como vulnerável sem avaliação:** uma dependência
+   que apresente vulnerabilidade conhecida relevante deve ser atualizada,
+   substituída ou ter seu risco avaliado antes da continuidade.
+
+5. **Falha em controle de acesso:** caso os testes demonstrem que um usuário
+   consegue acessar recursos ou funções sem a autorização necessária, a
+   implantação deve ser bloqueada até a correção.
+
+Essas condições transformam as verificações de segurança em critérios
+objetivos para a continuidade do pipeline, evitando que problemas conhecidos
+sejam levados diretamente para o ambiente de produção.
 
 ---
 
@@ -88,8 +188,8 @@ O enunciado pede uma tabela única com o formato **Momento → Atividade de segu
 | Momento | Atividade de segurança | Evidência produzida | Condição para continuar |
 |---|---|---|---|
 | Planejamento | _(Jaques preenche)_ | _(Jaques preenche)_ | _(Jaques preenche)_ |
-| Código | _(Ortiz preenche)_ | _(Ortiz preenche)_ | _(Ortiz preenche)_ |
-| Verificação | _(Ortiz preenche)_ | _(Ortiz preenche)_ | _(Ortiz preenche)_ |
+| Código | Práticas de implementação segura, testes automatizados, SAST, análise de dependências e verificação de segredos | Código/pseudocódigo, resultados dos testes e relatórios das verificações automatizadas | Testes de segurança aprovados; nenhum segredo versionado; nenhuma falha de controle de acesso conhecida |
+| Verificação | Análise dinâmica com OWASP ZAP e interpretação dos alertas encontrados | Relatório do ZAP, evidências da execução e análise dos achados A01, A02 e A03 | Nenhuma vulnerabilidade crítica ou de alto risco confirmada sem tratamento e nenhum achado de alto risco pendente de análise |
 | **Operação** | Monitoramento de logs de segurança (Etapa 6), métricas de disponibilidade (R05) e recorrência de erros de aplicação/banco (relacionados ao achado A01); aplicação das regras de detecção e resposta a incidentes | Alertas gerados pelas regras de detecção, registros de erro em produção, relatório de incidente (quando houver) | Nenhum alerta crítico em aberto sem triagem; nenhum incidente de risco crítico/alto (R01, R04, R05, R06) sem contenção aplicada |
 
 **Condições que impedem a continuidade do pipeline (a partir da operação):**

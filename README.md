@@ -105,7 +105,7 @@ do projeto está detalhada na [Etapa 3 — Arquitetura Segura](docs/arquitetura.
 
 ### 10.2 Vídeo final
 
-[INSERIR LINK OU LOCAL DO VÍDEO]
+[▶️ Assistir à apresentação final no YouTube](https://youtu.be/UISsBoVC2ME)
 
 ---
 

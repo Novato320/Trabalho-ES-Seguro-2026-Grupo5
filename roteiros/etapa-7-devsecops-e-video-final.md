@@ -48,7 +48,7 @@ A arquitetura de segurança proposta para o sistema de delivery é composta por 
 |:---|:---| :--- |
 | **Autorização por Recurso** | Implementação / Código | A revisão de código (Pull Request) avalia se todos os endpoints sensíveis chamam essa verificação |
 | **Autenticação Multifator (MFA) e Reautenticação** | Implementação e Testes | Testes automatizados validam se operações sensíveis exigem MFA/reautenticação. |
-| **Logs Imutáveis e Regras de Detecção** | Monitoramento / Operação | Após o deploy, os logs são centralizados.As Regras de Detecção são ativadas. Alertas críticos disparam um bloqueio automático temporário e notificam a equipe. |
+| **Logs Imutáveis e Regras de Detecção** | Monitoramento / Operação | Após o deploy, os logs são centralizados. As Regras de Detecção são ativadas. Alertas críticos disparam um bloqueio automático temporário e notificam a equipe. |
 
 ---
 
@@ -204,7 +204,9 @@ A resposta a incidentes nesta etapa aplica, dentro do contexto de implantação 
 
 Esta etapa não substitui o trabalho de detecção feito na Etapa 6 — ela o incorpora ao pipeline. A ideia central é que:
 
-- as **regras de detecção** (R01, R02, R03/R06, e demais) definidas na Etapa 6 passam a operar continuamente sobre o ambiente de produção alimentado pelo próprio pipeline de deploy, e não como algo à parte;
+- as **regras de detecção definidas na Etapa 6**, relacionadas aos riscos
+  selecionados pelo grupo, passam a operar continuamente sobre o ambiente
+  de produção alimentado pelo próprio pipeline de deploy, e não como algo à parte;
 - o **fluxo de resposta a incidentes** descrito na Etapa 6 (registro → triagem → contenção → investigação → comunicação → correção → encerramento) é o mesmo fluxo referenciado em 3.3, aplicado agora no contexto operacional pós-implantação;
 - assim, a Etapa 7 fecha o ciclo DevSecOps: as ameaças e riscos mapeados por Jaques, os controles de código e testes aplicados por Ortiz, e a implantação/monitoramento feitos aqui se conectam à capacidade de detecção e resposta já construída na Etapa 6, formando um pipeline que é seguro desde o planejamento até a operação.
 
@@ -214,7 +216,7 @@ O enunciado pede uma tabela única com o formato **Momento → Atividade de segu
 
 | Momento | Atividade de segurança | Evidência produzida | Condição para continuar |
 |---|---|---|---|
-| Planejamento | _(Jaques preenche)_ | _(Jaques preenche)_ | _(Jaques preenche)_ |
+| Planejamento | Modelagem de ameaças com STRIDE, análise e priorização de riscos, definição dos requisitos de segurança e arquitetura segura | Modelo STRIDE, matriz de riscos, requisitos de segurança e diagrama de arquitetura | Riscos críticos identificados e tratados por requisitos ou controles de segurança antes do início da implementação |
 | Código | Práticas de implementação segura, testes automatizados, SAST, análise de dependências e verificação de segredos | Código/pseudocódigo, resultados dos testes e relatórios das verificações automatizadas | Testes de segurança aprovados; nenhum segredo versionado; nenhuma falha de controle de acesso conhecida |
 | Verificação | Análise dinâmica com OWASP ZAP e interpretação dos alertas encontrados | Relatório do ZAP, evidências da execução e análise dos achados A01, A02 e A03 | Nenhuma vulnerabilidade crítica ou de alto risco confirmada sem tratamento e nenhum achado de alto risco pendente de análise |
 | **Operação** | Monitoramento de logs de segurança (Etapa 6), métricas de disponibilidade (R05) e recorrência de erros de aplicação/banco (relacionados ao achado A01); aplicação das regras de detecção e resposta a incidentes | Alertas gerados pelas regras de detecção, registros de erro em produção, relatório de incidente (quando houver) | Nenhum alerta crítico em aberto sem triagem; nenhum incidente de risco crítico/alto (R01, R04, R05, R06) sem contenção aplicada |
@@ -225,7 +227,24 @@ O enunciado pede uma tabela única com o formato **Momento → Atividade de segu
 
 ---
 
-## Vídeo final
+## 4. Roteiro do Vídeo Final
+
+A apresentação final foi organizada de forma a demonstrar a evolução da
+segurança ao longo do ciclo de desenvolvimento do sistema.
+
+### Sequência da apresentação
+
+1. Apresentação do sistema e objetivo do trabalho.
+2. Modelagem de ameaças utilizando STRIDE.
+3. Análise e priorização dos riscos.
+4. Definição dos requisitos e da arquitetura segura.
+5. Práticas de implementação segura e testes de segurança.
+6. Verificação de vulnerabilidades com OWASP ZAP.
+7. Monitoramento e detecção de intrusões.
+8. Integração das práticas no pipeline DevSecOps.
+9. Considerações finais.
+
+## 5 Vídeo final
 
 A apresentação final do projeto está disponível no YouTube:
 

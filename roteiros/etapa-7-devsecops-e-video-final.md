@@ -1,21 +1,31 @@
 # Etapa 7 — DevSecOps e Vídeo Final
 
-> Documento colaborativo. Cada integrante preenche sua seção; ao final, fazemos a revisão conjunta e montamos o roteiro do vídeo.
-
-**Divisão de responsabilidades:**
-- **Jaques** — Planejamento / STRIDE, riscos, requisitos e arquitetura no pipeline
-- **Ortiz** — Implementação segura, testes, ZAP e condições que impedem o avanço do pipeline
-- **Dornelles** — Implantação, monitoramento, resposta e integração com a Etapa 6
-
----
-
 ## 1. Planejamento e Modelagem de Ameaças
 
 ### 1.1 Modelagem STRIDE
+As ameaças foram identificadas por categoria STRIDE, relacionando cada uma a um componente ou ativo crítico do sistema de delivery.
+
+
 _(preencher: ameaças identificadas por categoria — Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)_
 
 ### 1.2 Análise de Riscos
-_(preencher: riscos priorizados, impacto x probabilidade)_
+Os riscos foram priorizados a partir da combinação de Probabilidade (1 a 4) e Impacto (1 a 4), resultando em uma pontuação que define o nível do risco (Crítico, Alto, Médio ou Baixo). Os riscos críticos são os que receberão atenção inicial no pipeline.
+
+#### R01 - Uso indevido de conta (acesso com credenciais roubadas)
+- **Probabilidade**: 3 (Média-Alta)
+- **Impacto**: 4 (Muito Alto)
+- **Pontuação**: 12
+- **Nível**: Crítico
+#### R04 - Acesso indevido a dados de outros usuários (exposição de privacidade/IDOR)
+- **Probabilidade**: 3 (Média-Alta)
+- **Impacto**: 4 (Muito Alto)
+- **Pontuação**: 12
+- **Nível**: Crítico
+#### R05 - Indisponibilidade do sistema em horário de pico (ataque ou sobrecarga)
+- **Probabilidade**: 3 (Média-Alta)
+- **Impacto**: 4 (Muito Alto)
+- **Pontuação**: 12
+- **Nível**: Crítico
 
 ### 1.3 Requisitos de Segurança
 _(preencher: requisitos derivados da análise de ameaças/riscos)_

@@ -34,7 +34,12 @@ Os riscos foram priorizados a partir da combinação de Probabilidade (1 a 4) e 
 - **Nível**: Crítico
 
 ### 1.3 Requisitos de Segurança
-_(preencher: requisitos derivados da análise de ameaças/riscos)_
+A partir da análise de riscos (especialmente os Críticos), foram derivados requisitos de segurança específicos e verificáveis, que devem ser exigidos ao longo de todo o pipeline DevSecOps.
+| ID Requisito | Risco | Requisito |
+|:---|:---| :--- |
+| RS01 | R05 (Indisponibilidade) | O sistema deverá limitar a taxa de requisições por usuário/IP nas operações críticas da API (ex: criação de pedidos, login), rejeitando requisições que excedam o limite. |
+| RS02 | R04 (Acesso indevido a dados) | O sistema deverá validar no backend, em toda requisição, se o usuário autenticado é o proprietário do recurso solicitado (pedidos, endereços, pagamentos) antes de retornar ou alterar qualquer informação. |
+| RS03 | R01 (Uso indevido de conta) | O sistema deverá exigir uma verificação adicional (reautenticação ou segundo fator - MFA) antes de confirmar operações sensíveis, como cancelamento de pedido, alteração de dados cadastrais ou pagamento. |
 
 ### 1.4 Arquitetura de Segurança no Pipeline
 _(preencher: onde cada controle se encaixa no pipeline CI/CD)_

@@ -42,7 +42,13 @@ A partir da análise de riscos (especialmente os Críticos), foram derivados req
 | RS03 | R01 (Uso indevido de conta) | O sistema deverá exigir uma verificação adicional (reautenticação ou segundo fator - MFA) antes de confirmar operações sensíveis, como cancelamento de pedido, alteração de dados cadastrais ou pagamento. |
 
 ### 1.4 Arquitetura de Segurança no Pipeline
-_(preencher: onde cada controle se encaixa no pipeline CI/CD)_
+A arquitetura de segurança proposta para o sistema de delivery é composta por controles distribuídos em camadas (Edge, Serviços e Dados). No contexto do pipeline DevSecOps (CI/CD), cada um desses controles deve ser exigido, testado e verificado em momentos específicos do fluxo.
+
+| Controle | Pipeline CI/CD | Verificação |
+|:---|:---| :--- |
+| **Autorização por Recurso** | Implementação / Código | A revisão de código (Pull Request) avalia se todos os endpoints sensíveis chamam essa verificação |
+| **Autenticação Multifator (MFA) e Reautenticação** | Implementação e Testes | Testes automatizados validam se operações sensíveis exigem MFA/reautenticação. |
+| **Logs Imutáveis e Regras de Detecção** | Monitoramento / Operação | Após o deploy, os logs são centralizados.As Regras de Detecção são ativadas. Alertas críticos disparam um bloqueio automático temporário e notificam a equipe. |
 
 ---
 

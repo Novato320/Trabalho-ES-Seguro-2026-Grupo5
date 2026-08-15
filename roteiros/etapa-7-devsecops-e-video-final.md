@@ -5,8 +5,14 @@
 ### 1.1 Modelagem STRIDE
 As ameaças foram identificadas por categoria STRIDE, relacionando cada uma a um componente ou ativo crítico do sistema de delivery.
 
-
-_(preencher: ameaças identificadas por categoria — Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)_
+| ID | Categoria | Componente |
+|:---|:---|:---|
+| T01 | Spoofing | Conta do cliente/entregador |
+| T02 | Tampering | Pedido / carrinho de compras |
+| T03 | Repudiation | Confirmações de entrega / logs |
+| T04 | Information Disclosure | Dados pessoais e de pagamento |
+| T05 | Denial of Service | API / backend de pedidos |
+| T06 | Elevation of Privilege | Controle de acesso / painel admin |
 
 ### 1.2 Análise de Riscos
 Os riscos foram priorizados a partir da combinação de Probabilidade (1 a 4) e Impacto (1 a 4), resultando em uma pontuação que define o nível do risco (Crítico, Alto, Médio ou Baixo). Os riscos críticos são os que receberão atenção inicial no pipeline.

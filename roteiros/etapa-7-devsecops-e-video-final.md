@@ -198,14 +198,8 @@ O enunciado pede uma tabela única com o formato **Momento → Atividade de segu
 
 ---
 
-## 4. Revisão Final
-_(preencher em conjunto após todas as seções acima estarem prontas)_
+## Vídeo final
 
-- [ ] Revisão técnica cruzada entre os três integrantes
-- [ ] Consistência entre seções (terminologia, nomes de ferramentas, etc.)
-- [ ] Ajustes finais
+A apresentação final do projeto está disponível no YouTube:
 
----
-
-## Notas Gerais
-_(espaço livre para observações da equipe)_
+[▶️ Assistir à apresentação final](https://youtu.be/UISsBoVC2ME)
